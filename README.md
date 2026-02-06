@@ -16,7 +16,7 @@
 
 ## 📦 快速开始
 
-### 方法一：使用 Docker Compose（推荐）
+### 方法一：使用 Docker Hub（推荐）
 
 ```bash
 # 1. 创建目录
