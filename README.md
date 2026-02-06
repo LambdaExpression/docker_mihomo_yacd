@@ -1,10 +1,10 @@
-# Clash Meta + Yacd Docker 镜像
+# Mihomo + Yacd Docker 镜像
 
-一个集成了 **Clash.Meta**（原Mihomo）核心和 **Yacd** Web管理界面的Docker容器解决方案。一键部署，轻松管理您的代理服务。
+一个集成了 **Mihomo** 核心和 **Yacd** Web管理界面的Docker容器解决方案。一键部署，轻松管理您的代理服务。
 
 ## ✨ 特性
 
-- 🐳 **一体化容器**：Clash.Meta核心 + Yacd Web界面
+- 🐳 **一体化容器**：Mihomo核心 + Yacd Web界面
 - 🔧 **简单配置**：只需挂载配置文件目录即可使用
 - 📱 **响应式界面**：支持电脑和手机端管理
 - 🔒 **安全可靠**：自动生成随机密钥，支持自定义
@@ -17,21 +17,21 @@
 
 ```bash
 # 1. 创建目录
-mkdir -p clash-meta-yacd && cd clash-meta-yacd
+mkdir -p mihomo-yacd && cd mihomo-yacd
 
 # 2. 下载必要文件
 mkdir -p ./clash-config/ruleset && \
-wget https://raw.githubusercontent.com/LambdaExpression/docker_clash_meta_yacd/refs/heads/main/clash-config/config.yaml -O ./clash-config/config.yaml && \
-wget https://raw.githubusercontent.com/LambdaExpression/docker_clash_meta_yacd/refs/heads/main/clash-config/Country.mmdb -O ./clash-config/Country.mmdb  && \
-wget https://raw.githubusercontent.com/LambdaExpression/docker_clash_meta_yacd/refs/heads/main/clash-config/ruleset/proxy.yaml -O ./clash-config/ruleset/proxy.yaml && \
-wget https://raw.githubusercontent.com/LambdaExpression/docker_clash_meta_yacd/refs/heads/main/clash-config/ruleset/reject.yaml -O ./clash-config/ruleset/reject.yaml
+wget https://raw.githubusercontent.com/LambdaExpression/docker_mihomo_yacd/refs/heads/main/clash-config/config.yaml -O ./clash-config/config.yaml && \
+wget https://raw.githubusercontent.com/LambdaExpression/docker_mihomo_yacd/refs/heads/main/clash-config/Country.mmdb -O ./clash-config/Country.mmdb  && \
+wget https://raw.githubusercontent.com/LambdaExpression/docker_mihomo_yacd/refs/heads/main/clash-config/ruleset/proxy.yaml -O ./clash-config/ruleset/proxy.yaml && \
+wget https://raw.githubusercontent.com/LambdaExpression/docker_mihomo_yacd/refs/heads/main/clash-config/ruleset/reject.yaml -O ./clash-config/ruleset/reject.yaml
 
 # 3. 下载容器镜像
-docker pull lambdaexpression/clash-meta-yacd:latest
+docker pull lambdaexpression/mihomo-yacd:latest
 
 # 4. 运行容器
 docker run -d \
-  --name=clash-meta-yacd \
+  --name=mihomo-yacd \
   --restart=unless-stopped \
   -p 7890:7890 \
   -p 7891:7891 \
@@ -41,7 +41,7 @@ docker run -d \
   -v ./clash-config:/config \
   -e TZ=Asia/Shanghai \
   --cap-add=NET_ADMIN \
-  lambdaexpression/clash-meta-yacd:latest
+  lambdaexpression/mihomo-yacd:latest
   
 # 5. 按实际情况配置 config.yaml, 配置完成后重启容器
 ```
@@ -51,14 +51,14 @@ docker run -d \
 ```bash
 # 1. 克隆或下载项目
 git clone <repository-url>
-cd docker_clash_meta_yacd
+cd docker_mihomo_yacd
 
 # 2. 构建镜像
-docker build -t clash-meta-yacd:latest .
+docker build -t mihomo-yacd:latest .
 
 # 3. 运行容器
 docker run -d \
-  --name=clash-meta-yacd \
+  --name=mihomo-yacd \
   --restart=unless-stopped \
   -p 7890:7890 \
   -p 7891:7891 \
@@ -68,7 +68,7 @@ docker run -d \
   -v ./clash-config:/config \
   -e TZ=Asia/Shanghai \
   --cap-add=NET_ADMIN \
-  clash-meta-yacd:latest
+  mihomo-yacd:latest
   
 # 4. 按实际情况配置 config.yaml, 配置完成后重启容器
 ```
@@ -185,22 +185,22 @@ rules:
 
 ```bash
 # 查看日志
-docker logs clash-meta-yacd
+docker logs mihomo-yacd
 
 # 查看实时日志
-docker logs -f clash-meta-yacd
+docker logs -f mihomo-yacd
 
 # 进入容器
-docker exec -it clash-meta-yacd /bin/sh
+docker exec -it mihomo-yacd /bin/sh
 
 # 重启容器
-docker restart clash-meta-yacd
+docker restart mihomo-yacd
 
 # 停止容器
-docker stop clash-meta-yacd
+docker stop mihomo-yacd
 
 # 删除容器
-docker rm -f clash-meta-yacd
+docker rm -f mihomo-yacd
 ```
 
 ## 🔄 配置热重载
@@ -209,7 +209,7 @@ docker rm -f clash-meta-yacd
 
 ```bash
 # 方法一：通过容器内脚本
-docker exec clash-meta-yacd /entrypoint.sh reload
+docker exec mihomo-yacd /entrypoint.sh reload
 
 # 方法二：通过API（需要密钥）
 curl -X PUT "http://localhost:9090/configs" \
@@ -223,19 +223,19 @@ curl -X PUT "http://localhost:9090/configs" \
 
 ```bash
 # 从源码构建
-docker build -t clash-meta-yacd:latest .
+docker build -t mihomo-yacd:latest .
 
 # 指定版本标签
-docker build -t clash-meta-yacd:v1.0 .
+docker build -t mihomo-yacd:v1.0 .
 
 # 多架构构建（需要buildx）
-docker buildx build --platform linux/amd64,linux/arm64 -t yourname/clash-meta-yacd:latest --push .
+docker buildx build --platform linux/amd64,linux/arm64 -t yourname/mihomo-yacd:latest --push .
 ```
 
 ### 项目文件结构
 
 ```
-clash-meta-yacd/
+docker_mihomo_yacd/
 ├── Dockerfile              # Docker构建文件
 ├── docker-compose.yml      # Docker Compose配置
 ├── nginx.conf             # Nginx配置文件
@@ -282,7 +282,7 @@ rule-providers:
 ### 1. 容器启动失败
 ```bash
 # 查看详细日志
-docker logs clash-meta-yacd
+docker logs mihomo-yacd
 
 # 检查端口占用
 netstat -tulpn | grep :7890
@@ -291,13 +291,13 @@ netstat -tulpn | grep :7890
 ### 2. Web 界面无法访问
 ```bash
 # 检查容器状态
-docker ps | grep clash-meta-yacd
+docker ps | grep mihomo-yacd
 
 # 检查端口映射
-docker port clash-meta-yacd
+docker port mihomo-yacd
 
 # 检查容器内服务
-docker exec clash-meta-yacd ps aux
+docker exec mihomo-yacd ps aux
 ```
 
 ### 3. 代理不工作
@@ -306,7 +306,7 @@ docker exec clash-meta-yacd ps aux
 curl -x http://localhost:7890 https://httpbin.org/ip
 
 # 查看Clash日志
-docker logs clash-meta-yacd | grep -i "proxy\|error"
+docker logs mihomo-yacd | grep -i "proxy\|error"
 ```
 
 ## 📄 许可证
@@ -319,7 +319,7 @@ docker logs clash-meta-yacd | grep -i "proxy\|error"
 
 ## ⭐ 相关项目
 
-- [Clash.Meta](https://github.com/MetaCubeX/mihomo) - 代理核心
+- [Mihomo](https://github.com/MetaCubeX/mihomo) - 代理核心
 - [Yacd](https://github.com/haishanh/yacd) - Web管理界面
 
 ## 📞 支持
@@ -327,6 +327,6 @@ docker logs clash-meta-yacd | grep -i "proxy\|error"
 如有问题，请：
 1. 查看 [FAQ](#) 部分
 2. 提交 [Issue](issues-url)
-3. 查看日志文件：`docker logs clash-meta-yacd`
+3. 查看日志文件：`docker logs mihomo-yacd`
 
 
