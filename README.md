@@ -1,6 +1,6 @@
-# Mihomo + Yacd Docker 镜像
+# Mihomo + Yacd-meta Docker 镜像
 
-一个集成了 **Mihomo** 核心和 **Yacd** Web管理界面的Docker容器，轻松使用和管理您的代理服务。
+一个集成了 **Mihomo (原 Clash.Meta)** 核心 和 **Yacd-meta** Web管理界面的Docker容器，轻松使用和管理您的代理服务。
 
 ![](https://raw.githubusercontent.com/LambdaExpression/docker_mihomo_yacd/refs/heads/main/image/01.png)
 ![](https://raw.githubusercontent.com/LambdaExpression/docker_mihomo_yacd/refs/heads/main/image/02.png)
@@ -8,7 +8,7 @@
 
 ## ✨ 特性
 
-- 🐳 **一体化容器**：Mihomo 核心 + Yacd Web界面
+- 🐳 **一体化容器**：Mihomo (原 Clash.Meta) 核心 + Yacd Web界面
 - 🔧 **简单配置**：只需挂载配置文件目录即可使用
 - 📱 **响应式界面**：支持电脑和手机端管理
 - 🚀 **高性能**：基于Alpine Linux，资源占用低
@@ -323,7 +323,7 @@ docker logs mihomo-yacd | grep -i "proxy\|error"
 ## ⭐ 相关项目
 
 - [Mihomo](https://github.com/MetaCubeX/mihomo) - 代理核心
-- [Yacd](https://github.com/haishanh/yacd) - Web管理界面
+- [Yacd](https://github.com/MetaCubeX/Yacd-meta) - Web管理界面
 
 ## 📞 支持
 

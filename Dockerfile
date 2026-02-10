@@ -4,7 +4,6 @@ FROM alpine:3.19
 
 # 设置环境变量
 ENV CLASH_META_VERSION=v1.19.19
-ENV YACD_VERSION=v0.3.8
 ENV CLASH_HTTP_PORT=7890
 ENV CLASH_SOCKS_PORT=7891
 ENV CLASH_MIXED_PORT=7893
@@ -25,6 +24,7 @@ RUN apk add --no-cache \
     su-exec \
     libc6-compat \
     nginx \
+    unzip \
     && rm -rf /var/cache/apk/* \
     && mkdir -p /run/nginx
 
@@ -49,12 +49,13 @@ RUN ARCH=$(uname -m) && \
     mv /tmp/mihomo /app/clash/mihomo && \
     chmod +x /app/clash/mihomo
 
-# 下载 Yacd Web UI
-RUN wget -q "https://github.com/haishanh/yacd/releases/download/${YACD_VERSION}/yacd.tar.xz" -O /tmp/yacd.tar.xz && \
-    tar -xf /tmp/yacd.tar.xz -C /app/web --strip-components=1 && \
-    rm -rf /tmp/yacd.tar.xz
+# 下载 Yacd-meta (gh-pages)
+RUN wget -q "https://github.com/MetaCubeX/yacd/archive/gh-pages.zip" -O /tmp/yacd-gh-pages.zip && \
+    unzip -q /tmp/yacd-gh-pages.zip -d /tmp && \
+    mv /tmp/Yacd-meta-gh-pages/* /app/web/ && \
+    rm -rf /tmp/Yacd-meta-gh-pages /tmp/yacd-gh-pages.zip
 
-# 配置 nginx 为 Yacd 提供服务
+# 配置 nginx 为 Yacd-meta 提供服务
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # 创建启动脚本
